@@ -1,20 +1,32 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import AppLoading from 'expo-app-loading';
+import React, { useEffect } from 'react';
+import Main from './Main';
+import { ThemeProvider } from './providers';
+import firebase from '@react-native-firebase/app';
+import { Text } from 'react-native';
+import { useRecoilValueLoadable } from 'recoil';
+import { syncDataSelector } from './data';
 
-export default function App() {
+const firebaseConfig = {
+  apiKey: 'AIzaSyCDyHSJJLykaDiJeynV8S8gTq-uuqwRbJA',
+  authDomain: 'infodex-a2a66.firebaseapp.com',
+  databaseURL: 'https://infodex-a2a66-default-rtdb.firebaseio.com/',
+  projectId: 'infodex-a2a66',
+  storageBucket: 'gs://infodex-a2a66.appspot.com',
+  appId: '1:978393391291:ios:3ab4f2ff463784c8c9899e'
+};
+
+firebase.initializeApp(firebaseConfig);
+
+const App = () => {
+  const syncDataLoadable = useRecoilValueLoadable(syncDataSelector);
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <ThemeProvider>
+      <Text>Test</Text>
+      {/* <Main /> */}
+    </ThemeProvider>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
